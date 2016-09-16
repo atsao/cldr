@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { addQuery, removeQuery } from '../actions';
+import { addQuery, removeQuery, processDataRequest } from '../actions';
 
 class Input extends Component {
   constructor(props) {
@@ -11,13 +11,12 @@ class Input extends Component {
   }
 
   onInputChange(e) {
-    // console.log('input changed:', e.target.value);
-    // console.log('is input checked? ', e.target.checked);
     if (e.target.checked) {
       this.props.addQuery(e.target.value);
     } else {
       this.props.removeQuery(e.target.value);
     }
+    this.props.processDataRequest();
   }
 
   render() {
@@ -72,7 +71,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addQuery, removeQuery }, dispatch);
+  return bindActionCreators({ addQuery, removeQuery, processDataRequest }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Input);

@@ -9,13 +9,14 @@ import Locales from './locales';
 class Main extends Component {
   constructor(props) {
     super(props);
-    
+
     this.props.getDataRequest();
   }
 
   render() {
     return (
       <div className='content'>
+        { this.props.isLoading ? <p>LOADING</p> : <p>done</p> }
         <Input />
         <Locales />
       </div>

@@ -71,3 +71,19 @@ input, label {
   @neat-span-columns 8;
   @neat-omega;
 }
+
+.locale-block {
+  clear: fix;
+}
+
+.locale-property {
+  @neat-span-columns 3;
+}
+
+.locale-values {
+  @neat-span-columns 9;
+}
+
+.locale-value-block {
+  display: inline-block;
+}

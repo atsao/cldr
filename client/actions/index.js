@@ -14,10 +14,7 @@ export const getDataRequest = () => {
       method: 'GET',
       url: API_CLDR
     })
-    .then(response => {
-      console.log(response.data);
-      dispatch(getDataSuccess(response.data));
-    })
+    .then(response => dispatch(getDataSuccess(response.data)))
     .catch(response => dispatch(getDataFailure(response)));
   };
 }
@@ -63,5 +60,55 @@ export const removeQuery = (query) => {
   return {
     type: REMOVE_QUERY,
     payload: query
+  }
+}
+
+export const PROCESS_DATA_REQUEST = 'PROCESS_DATA_REQUEST';
+export const PROCESS_DATA_SUCCESS = 'PROCESS_DATA_SUCCESS';
+
+export const processDataRequest = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    if (Object.keys(state.query).length === 0 && state.query.constructor === Object) {
+      return;
+    }
+      
+    let items = Object.keys(state.query).reduce((initial, current, i) => {
+      initial[current] = [];
+      return initial;
+    }, {});
+
+    dispatch(processData());
+
+    state.data.forEach((item, i) => {
+      let current = item.main;
+      let localeName = '';
+
+      for (let k in current) {
+        localeName = k;
+        for (let p in current[k].delimiters) {
+          let value = {};
+          if (items[p]) {
+            value.value = current[k].delimiters[p];
+            value.name = localeName;
+            items[p].push(value);
+          }
+        }
+      }
+    });
+    dispatch(processDataSuccess(items));
+  }
+}
+
+const processData = () => {
+  return {
+    type: PROCESS_DATA_REQUEST
+  }
+}
+
+const processDataSuccess = (data) => {
+  return {
+    type: PROCESS_DATA_SUCCESS,
+    payload: data
   }
 }

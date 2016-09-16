@@ -3,3 +3,5 @@ node_modules/
 
 # Setup files
 npm.txt
+
+client/bundle.js
