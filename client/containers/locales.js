@@ -26,15 +26,19 @@ class Locales extends Component {
     return (
       <div className='locales-container'>
         <div className='locales-header-row'>
-          <div className='locales-header property'>
-            <h4>Property</h4>
-          </div>
-          <div className='locales-header locales'>
-            <h4>Locales</h4>
+          <div className='container'>
+            <div className='locales-header property'>
+              <h4>Property</h4>
+            </div>
+            <div className='locales-header locales'>
+              <h4>Locales</h4>
+            </div>
           </div>
         </div>
         <div className="locales">
-          { Object.keys(this.props.current).length === 0 && this.props.current.constructor === Object ? this.renderLocales() : this.renderLocales() }
+          <div className='container'>
+            { Object.keys(this.props.current).length === 0 && this.props.current.constructor === Object ? '' : this.renderLocales() }
+          </div>
         </div>
       </div>
     );

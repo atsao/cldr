@@ -70,6 +70,8 @@ export const processDataRequest = () => {
   return (dispatch, getState) => {
     const state = getState();
     if (Object.keys(state.query).length === 0 && state.query.constructor === Object) {
+      dispatch(processDataSuccess([]));
+
       return;
     }
       
@@ -112,3 +114,4 @@ const processDataSuccess = (data) => {
     payload: data
   }
 }
+

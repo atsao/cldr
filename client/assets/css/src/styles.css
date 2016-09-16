@@ -30,6 +30,32 @@ body {
   @neat-outer-container;
 }
 
+.spinner-container {
+  background: #fff;
+  display: block;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.9;
+  width: 100%;
+  z-index: 100;
+}
+
+.spinner {
+  background: url('../img/spinner.gif') center center no-repeat transparent;
+  display: block;
+  height: 100px;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+}
+
 .input-container {
   margin: 2em 0;
 }
@@ -38,11 +64,7 @@ body {
   cursor: pointer;
   display: inline-block;
   margin-right: 5px;
-  padding: 10px;
-}
-
-.input-btn:hover {
-  background: #f9f9f9;
+  padding: 10px 0;
 }
 
 input, label {
@@ -56,7 +78,7 @@ input, label {
 }
 
 .locales-header {
-  padding: 10px;
+  padding: 20px 0;
 }
 
 .locales-header h4 {
@@ -68,12 +90,12 @@ input, label {
 }
 
 .locales {
-  @neat-span-columns 8;
-  @neat-omega;
+  @neat-fill-parent;
 }
 
 .locale-block {
   clear: fix;
+  margin-bottom: 20px;
 }
 
 .locale-property {
@@ -85,5 +107,19 @@ input, label {
 }
 
 .locale-value-block {
+  background: $blue;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 0.85em;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+}
+
+.locale-name {
+  display: inline-block;
+}
+
+.locale-value {
   display: inline-block;
 }

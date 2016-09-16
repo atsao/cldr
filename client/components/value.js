@@ -7,7 +7,7 @@ export default class Value extends Component {
 
     return (
       <div className='locale-value-block'>
-        { localeName }: { propertyValue }
+          { localeName }: { propertyValue }
       </div>
     );
   }

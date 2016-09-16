@@ -16,7 +16,10 @@ class Main extends Component {
   render() {
     return (
       <div className='content'>
-        { this.props.isLoading ? <p>LOADING</p> : <p>done</p> }
+        { this.props.isLoading ? 
+          <div className='spinner-container'>
+            <div className='spinner'></div>
+          </div> : '' }
         <Input />
         <Locales />
       </div>

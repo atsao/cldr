@@ -13,7 +13,10 @@ export default function(state = INITIAL_STATE, action) {
         [keyName]: []
       };
     case REMOVE_QUERY:
-      return removeByKey(state, action.payload);
+      // return removeByKey(state, action.payload);
+      let newState = Object.assign({}, state);
+      delete newState[action.payload];
+      return newState;
     default:
       return state;
   }

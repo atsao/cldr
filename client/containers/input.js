@@ -27,6 +27,7 @@ class Input extends Component {
           <div className='input-btn'>
             <input
               onChange={ this.onInputChange }
+              disabled={ this.props.isLoading }
               type='checkbox'
               id="quotationStart"
               name="quotationStart"
@@ -36,6 +37,7 @@ class Input extends Component {
           <div className='input-btn'>
             <input
               onChange={ this.onInputChange }
+              disabled={ this.props.isLoading }
               type='checkbox'
               id="quotationEnd"
               name="quotationEnd"
@@ -45,6 +47,7 @@ class Input extends Component {
           <div className='input-btn'>
             <input
               onChange={ this.onInputChange }
+              disabled={ this.props.isLoading }
               type='checkbox'
               id="alternateQuotationEnd"
               name="alternateQuotationEnd"
@@ -54,6 +57,7 @@ class Input extends Component {
           <div className='input-btn'>
             <input
               onChange={ this.onInputChange }
+              disabled={ this.props.isLoading }
               type='checkbox'
               id="alternateQuotationStart"
               name="alternateQuotationStart"
