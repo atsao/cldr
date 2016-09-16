@@ -41,3 +41,27 @@ const getDataFailure = (error) => {
     payload: error
   }
 }
+
+export const GET_QUERY_LIST = 'GET_QUERY_LIST';
+export const ADD_QUERY = 'ADD_QUERY';
+export const REMOVE_QUERY = 'REMOVE_QUERY';
+
+export const getQueryList = () => {
+  return {
+    type: GET_QUERY_LIST
+  }
+}
+
+export const addQuery = (query) => {
+  return {
+    type: ADD_QUERY,
+    payload: query
+  }
+}
+
+export const removeQuery = (query) => {
+  return {
+    type: REMOVE_QUERY,
+    payload: query
+  }
+}

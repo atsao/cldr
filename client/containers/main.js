@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getDataRequest } from '../actions';
 
+import Input from './input';
+import Locales from './locales';
+
 class Main extends Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+    
     this.props.getDataRequest();
   }
 
   render() {
     return (
-      <div className='container'>
-        <h2>Main</h2>
+      <div className='content'>
+        <Input />
+        <Locales />
       </div>
     );
   }

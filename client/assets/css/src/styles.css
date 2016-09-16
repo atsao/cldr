@@ -1,0 +1,73 @@
+@import '_reset';
+@import '_variables';
+@import '_typography';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: $body-bg;
+  color: $base-font-color;
+  font-family: $base-font-stack;
+  font-size: $base-font-size;
+  font-weight: $base-font-weight;
+  line-height: $base-line-height;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: $max-width;
+  padding: 0 20px;
+  position: relative;
+
+  @neat-outer-container;
+}
+
+.input-container {
+  margin: 2em 0;
+}
+
+.input-btn {
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 5px;
+  padding: 10px;
+}
+
+.input-btn:hover {
+  background: #f9f9f9;
+}
+
+input, label {
+  cursor: pointer;
+  font: inherit;
+}
+
+.locales-container {
+  background: #eee;
+  clear: fix;
+}
+
+.locales-header {
+  padding: 10px;
+}
+
+.locales-header h4 {
+  margin: 0;
+}
+
+.property {
+  @neat-span-columns 4;
+}
+
+.locales {
+  @neat-span-columns 8;
+  @neat-omega;
+}

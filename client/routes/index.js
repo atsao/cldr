@@ -6,7 +6,7 @@ import Main from '../containers/main';
 export default (
   <Route component={ App }>
     <Route path="/">
-    <IndexRoute component={ Main } />
+      <IndexRoute component={ Main }/>
     </Route>
   </Route>
 );

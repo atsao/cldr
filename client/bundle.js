@@ -75,7 +75,7 @@
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
-	var _routes = __webpack_require__(584);
+	var _routes = __webpack_require__(585);
 
 	var _routes2 = _interopRequireDefault(_routes);
 
@@ -36953,19 +36953,53 @@
 
 	var _reactRouterRedux = __webpack_require__(554);
 
-	var _data = __webpack_require__(587);
+	var _data = __webpack_require__(560);
 
 	var _data2 = _interopRequireDefault(_data);
+
+	var _query = __webpack_require__(584);
+
+	var _query2 = _interopRequireDefault(_query);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.default = (0, _redux.combineReducers)({
 	  data: _data2.default,
+	  query: _query2.default,
 	  routing: _reactRouterRedux.routerReducer
 	});
 
 /***/ },
-/* 560 */,
+/* 560 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	exports.default = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? INITIAL_STATE : arguments[0];
+	  var action = arguments[1];
+
+	  switch (action.type) {
+	    case _actions.GET_DATA_REQUEST:
+	      return state;
+	    case _actions.GET_DATA_SUCCESS:
+	      return action.payload;
+	    case _actions.GET_DATA_FAILURE:
+	      return action.payload;
+	    default:
+	      return state;
+	  }
+	};
+
+	var _actions = __webpack_require__(561);
+
+	var INITIAL_STATE = [];
+
+/***/ },
 /* 561 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -36974,7 +37008,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getDataRequest = exports.GET_DATA_FAILURE = exports.GET_DATA_SUCCESS = exports.GET_DATA_REQUEST = undefined;
+	exports.removeQuery = exports.addQuery = exports.getQueryList = exports.REMOVE_QUERY = exports.ADD_QUERY = exports.GET_QUERY_LIST = exports.getDataRequest = exports.GET_DATA_FAILURE = exports.GET_DATA_SUCCESS = exports.GET_DATA_REQUEST = undefined;
 
 	var _axios = __webpack_require__(562);
 
@@ -37021,6 +37055,30 @@
 	  return {
 	    type: GET_DATA_FAILURE,
 	    payload: error
+	  };
+	};
+
+	var GET_QUERY_LIST = exports.GET_QUERY_LIST = 'GET_QUERY_LIST';
+	var ADD_QUERY = exports.ADD_QUERY = 'ADD_QUERY';
+	var REMOVE_QUERY = exports.REMOVE_QUERY = 'REMOVE_QUERY';
+
+	var getQueryList = exports.getQueryList = function getQueryList() {
+	  return {
+	    type: GET_QUERY_LIST
+	  };
+	};
+
+	var addQuery = exports.addQuery = function addQuery(query) {
+	  return {
+	    type: ADD_QUERY,
+	    payload: query
+	  };
+	};
+
+	var removeQuery = exports.removeQuery = function removeQuery(query) {
+	  return {
+	    type: REMOVE_QUERY,
+	    payload: query
 	  };
 	};
 
@@ -38378,17 +38436,66 @@
 	  value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+	exports.default = function () {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? INITIAL_STATE : arguments[0];
+	  var action = arguments[1];
+
+	  var _ret = function () {
+	    switch (action.type) {
+	      case _actions.GET_QUERY_LIST:
+	        return {
+	          v: state
+	        };
+	      case _actions.ADD_QUERY:
+	        return {
+	          v: [].concat(_toConsumableArray(state), [action.payload])
+	        };
+	      case _actions.REMOVE_QUERY:
+	        var query = action.payload;
+	        return {
+	          v: state.filter(function (item) {
+	            return item !== query;
+	          })
+	        };
+	      default:
+	        return {
+	          v: state
+	        };
+	    }
+	  }();
+
+	  if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	};
+
+	var _actions = __webpack_require__(561);
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	var INITIAL_STATE = [];
+
+/***/ },
+/* 585 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _react = __webpack_require__(298);
 
 	var _react2 = _interopRequireDefault(_react);
 
 	var _reactRouter = __webpack_require__(493);
 
-	var _app = __webpack_require__(585);
+	var _app = __webpack_require__(586);
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _main = __webpack_require__(588);
+	var _main = __webpack_require__(587);
 
 	var _main2 = _interopRequireDefault(_main);
 
@@ -38405,7 +38512,7 @@
 	); // Root layout
 
 /***/ },
-/* 585 */
+/* 586 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -38419,8 +38526,6 @@
 	var _react = __webpack_require__(298);
 
 	var _react2 = _interopRequireDefault(_react);
-
-	var _reactRedux = __webpack_require__(483);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -38446,11 +38551,15 @@
 	        'div',
 	        { className: 'wrapper' },
 	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'Hello World'
-	        ),
-	        this.props.children
+	          'div',
+	          { className: 'container' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'CLDR'
+	          ),
+	          this.props.children
+	        )
 	      );
 	    }
 	  }]);
@@ -38458,10 +38567,9 @@
 	  return App;
 	}(_react.Component);
 
-	exports.default = (0, _reactRedux.connect)(null, null)(App);
+	exports.default = App;
 
 /***/ },
-/* 586 */,
 /* 587 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -38471,25 +38579,70 @@
 	  value: true
 	});
 
-	exports.default = function () {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? INITIAL_STATE : arguments[0];
-	  var action = arguments[1];
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	  switch (action.type) {
-	    case _actions.GET_DATA_REQUEST:
-	      return state;
-	    case _actions.GET_DATA_SUCCESS:
-	      return action.payload;
-	    case _actions.GET_DATA_FAILURE:
-	      return action.payload;
-	    default:
-	      return state;
-	  }
-	};
+	var _react = __webpack_require__(298);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(483);
+
+	var _redux = __webpack_require__(468);
 
 	var _actions = __webpack_require__(561);
 
-	var INITIAL_STATE = [];
+	var _input = __webpack_require__(588);
+
+	var _input2 = _interopRequireDefault(_input);
+
+	var _locales = __webpack_require__(589);
+
+	var _locales2 = _interopRequireDefault(_locales);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Main = function (_Component) {
+	  _inherits(Main, _Component);
+
+	  function Main(props) {
+	    _classCallCheck(this, Main);
+
+	    var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+
+	    _this.props.getDataRequest();
+	    return _this;
+	  }
+
+	  _createClass(Main, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'content' },
+	        _react2.default.createElement(_input2.default, null),
+	        _react2.default.createElement(_locales2.default, null)
+	      );
+	    }
+	  }]);
+
+	  return Main;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	  return state;
+	}
+
+	function mapDispatchToProps(dispatch) {
+	  return (0, _redux.bindActionCreators)({ getDataRequest: _actions.getDataRequest }, dispatch);
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Main);
 
 /***/ },
 /* 588 */
@@ -38507,8 +38660,6 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactRouter = __webpack_require__(493);
-
 	var _reactRedux = __webpack_require__(483);
 
 	var _redux = __webpack_require__(468);
@@ -38523,36 +38674,109 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Main = function (_Component) {
-	  _inherits(Main, _Component);
+	var Input = function (_Component) {
+	  _inherits(Input, _Component);
 
-	  function Main() {
-	    _classCallCheck(this, Main);
+	  function Input(props) {
+	    _classCallCheck(this, Input);
 
-	    return _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (Input.__proto__ || Object.getPrototypeOf(Input)).call(this, props));
+
+	    _this.onInputChange = _this.onInputChange.bind(_this);
+	    return _this;
 	  }
 
-	  _createClass(Main, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      this.props.getDataRequest();
+	  _createClass(Input, [{
+	    key: 'onInputChange',
+	    value: function onInputChange(e) {
+	      // console.log('input changed:', e.target.value);
+	      // console.log('is input checked? ', e.target.checked);
+	      if (e.target.checked) {
+	        this.props.addQuery(e.target.value);
+	      } else {
+	        this.props.removeQuery(e.target.value);
+	      }
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        { className: 'container' },
+	        { className: 'input-container' },
 	        _react2.default.createElement(
-	          'h2',
+	          'h4',
 	          null,
-	          'Main'
+	          'Input'
+	        ),
+	        _react2.default.createElement(
+	          'form',
+	          { className: 'input-form' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'input-btn' },
+	            _react2.default.createElement('input', {
+	              onChange: this.onInputChange,
+	              type: 'checkbox',
+	              id: 'quotationStart',
+	              name: 'quotationStart',
+	              value: 'quotationStart' }),
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'quotationStart' },
+	              'quotationStart'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'input-btn' },
+	            _react2.default.createElement('input', {
+	              onChange: this.onInputChange,
+	              type: 'checkbox',
+	              id: 'quotationEnd',
+	              name: 'quotationEnd',
+	              value: 'quotationEnd' }),
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'quotationEnd' },
+	              'quotationEnd'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'input-btn' },
+	            _react2.default.createElement('input', {
+	              onChange: this.onInputChange,
+	              type: 'checkbox',
+	              id: 'alternateQuotationEnd',
+	              name: 'alternateQuotationEnd',
+	              value: 'alternateQuotationEnd' }),
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'alternateQuotationEnd' },
+	              'alternateQuotationEnd'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'input-btn' },
+	            _react2.default.createElement('input', {
+	              onChange: this.onInputChange,
+	              type: 'checkbox',
+	              id: 'alternateQuotationStart',
+	              name: 'alternateQuotationStart',
+	              value: 'alternateQuotationStart' }),
+	            _react2.default.createElement(
+	              'label',
+	              { htmlFor: 'alternateQuotationStart' },
+	              'alternateQuotationStart'
+	            )
+	          )
 	        )
 	      );
 	    }
 	  }]);
 
-	  return Main;
+	  return Input;
 	}(_react.Component);
 
 	function mapStateToProps(state) {
@@ -38560,10 +38784,129 @@
 	}
 
 	function mapDispatchToProps(dispatch) {
-	  return (0, _redux.bindActionCreators)({ getDataRequest: _actions.getDataRequest }, dispatch);
+	  return (0, _redux.bindActionCreators)({ addQuery: _actions.addQuery, removeQuery: _actions.removeQuery }, dispatch);
 	}
 
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Main);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Input);
+
+/***/ },
+/* 589 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(298);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(483);
+
+	var _redux = __webpack_require__(468);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Locales = function (_Component) {
+	  _inherits(Locales, _Component);
+
+	  function Locales(props) {
+	    _classCallCheck(this, Locales);
+
+	    var _this = _possibleConstructorReturn(this, (Locales.__proto__ || Object.getPrototypeOf(Locales)).call(this, props));
+
+	    _this.state = {};
+
+	    _this.processData = _this.processData.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Locales, [{
+	    key: 'processData',
+	    value: function processData() {
+	      if (!this.props.query.length || !this.props.data.length) return;
+	      var queries = this.props.query.reduce(function (initial, current, i) {
+	        initial[current] = [];
+	        return initial;
+	      }, {});
+
+	      this.props.data.forEach(function (item, i) {
+	        var current = item.main;
+	        var localeName = '';
+
+	        for (var k in current) {
+	          localeName = k;
+	          for (var p in current[k].delimiters) {
+	            var value = {};
+	            if (queries[p]) {
+	              value[p] = current[k].delimiters[p];
+	              value.name = localeName;
+	              queries[p].push(value);
+	            }
+	          }
+	        }
+	      });
+
+	      this.setState(queries);
+	    }
+	  }, {
+	    key: 'renderLocales',
+	    value: function renderLocales() {}
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'locales-container' },
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.processData },
+	          'Load Data'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'locales-header-row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'locales-header property' },
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              'Property'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'locales-header locales' },
+	            _react2.default.createElement(
+	              'h4',
+	              null,
+	              'Locales'
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Locales;
+	}(_react.Component);
+
+	function mapStateToProps(state) {
+	  return state;
+	}
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Locales);
 
 /***/ }
 /******/ ]);
